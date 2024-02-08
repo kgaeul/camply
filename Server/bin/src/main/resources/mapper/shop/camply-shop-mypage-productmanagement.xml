@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.camply.shop.mypage.productmanagement.dao.ProductManagementDAO">
+	<resultMap id="ProductResultMap" type="com.camply.shop.common.vo.ProductVO">
+    <id property="productId" column="PRODUCT_ID"/>
+	    <result property="productName" column="PRODUCT_NAME"/>
+	    <result property="productDescription" column="PRODUCT_DESCRIPTION"/>
+		<result property="productPrice" column="PRODUCT_PRICE"/>
+		<result property="productCategory" column="PRODUCT_CATEGORY"/>
+		<result property="productColor" column="PRODUCT_COLOR"/>
+		<result property="productThumbnail" column="PRODUCT_THUMBNAIL"/>
+		<result property="productMain" column="PRODUCT_MAIN"/>
+		<result property="productMain2" column="PRODUCT_MAIN2"/>
+		<result property="productMain3" column="PRODUCT_MAIN3"/>
+		<result property="productContent" column="PRODUCT_CONTENT"/>
+		<result property="productCreateDate" column="PRODUCT_CREATE_DATE"/>
+		<result property="productStock" column="PRODUCT_STOCK"/>
+		<result property="userId" column="USER_ID"/>
+		<result property="productStatus" column="PRODUCT_STATUS"/>
+		<result property="productCode" column="PRODUCT_CODE"/>
+</resultMap>
+		
+	<!-- 상품등록 -->
+	<insert id="insertProduct" parameterType="com.camply.shop.common.vo.ProductVO">
+		INSERT INTO SHOP_PRODUCT (PRODUCT_ID, PRODUCT_NAME, PRODUCT_DESCRIPTION, PRODUCT_PRICE, PRODUCT_CATEGORY, PRODUCT_COLOR, PRODUCT_THUMBNAIL, PRODUCT_MAIN, PRODUCT_CONTENT, PRODUCT_CREATE_DATE, PRODUCT_STOCK, USER_ID, PRODUCT_STATUS, PRODUCT_CODE)
+		VALUES (product_id_seq.NEXTVAL, #{productName}, #{productDescription}, #{productPrice}, #{productCategory}, #{productColor}, #{productThumbnail}, #{productMain}, #{productContent}, #{productCreateDate}, #{productStock}, #{userId}, #{productStatus}, #{productCode})
+	</insert>
+
+	<!-- 등록 상품 리스트 조회 -->
+	<select id="getAllProducts" resultMap="ProductResultMap">
+	    SELECT * FROM SHOP_PRODUCT ORDER BY PRODUCT_CREATE_DATE	
+	</select>
+	
+	
+	<!-- 단일 상품 조회 -->
+	<select id="getProductById" parameterType="int" resultMap="ProductResultMap">
+	    SELECT * FROM SHOP_PRODUCT WHERE PRODUCT_ID = #{productId}
+	</select>
+	<!-- 등록 상품 수정  -->
+	<update id="updateProduct" parameterType="com.camply.shop.common.vo.ProductVO">
+	    UPDATE SHOP_PRODUCT 
+	    SET USER_ID = #{userId}, 
+	    	PRODUCT_CODE = #{productCode}, 
+	    	PRODUCT_NAME = #{productName}, 
+	        PRODUCT_DESCRIPTION = #{productDescription}, 
+	        PRODUCT_PRICE = #{productPrice}, 
+	        PRODUCT_CATEGORY = #{productCategory}, 
+	        PRODUCT_COLOR = #{productColor}, 
+	        PRODUCT_THUMBNAIL = #{productThumbnail}, 
+	        PRODUCT_MAIN = #{productMain}, 
+	        PRODUCT_CONTENT = #{productContent}, 
+	        PRODUCT_STOCK = #{productStock}, 
+	        PRODUCT_STATUS = #{productStatus} 
+	    WHERE PRODUCT_ID = #{productId}
+	</update>
+	
+	<!-- 등록상품 상태 수정 -->
+	<update id="statusUpdateProduct" parameterType="String">
+	UPDATE SHOP_PRODUCT 
+	    SET PRODUCT_STATUS = #{productStatus} WHERE PRODUCT_ID = #{productId}
+	</update>
+	
+	<!-- 등록 상품 삭제 -->
+	<delete id="deleteProduct" parameterType="int">
+   		DELETE FROM SHOP_PRODUCT WHERE PRODUCT_ID = #{productId}
+	</delete>
+	
+	
+</mapper>
+
+<!--주문일, 주문번호(오더), 주문자, 상품명, 총결제금액, 상품금액, 주문상태(오더)-->

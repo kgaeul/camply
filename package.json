@@ -1,0 +1,9 @@
+{
+  "dependencies": {
+    "axios": "^1.6.5",
+    "bootstrap": "^5.3.2",
+    "cors": "^2.8.5",
+    "react-daum-postcode": "^3.1.3"
+  }
+}
+

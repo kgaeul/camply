@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//myBatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.camply.camp.dips.dao.DipsDAO">
+
+    <resultMap id="CampPostingMap" type="com.camply.camp.board.vo.BoardVO">
+        <id column="CAMP_ID" property="camp_id"/>
+        <result column="USER_ID" property="user_id"/>
+        <result column="CAMP_SELECT" property="camp_select"/>
+        <result column="CAMP_LOCATION" property="camp_location"/>
+        <result column="CAMP_NAME" property="camp_name"/>
+        <result column="CAMP_ADDRESS" property="camp_address"/>
+        <result column="CAMP_PHONE" property="camp_phone"/>
+        <result column="CAMP_ADULT" property="camp_adult"/>
+        <result column="CAMP_CHILD" property="camp_child"/>
+        <result column="CAMP_PRICE" property="camp_price"/>
+        <result column="CAMP_DESCRIPTION" property="camp_description"/>
+        <result column="CAMP_IMAGES" property="camp_images"/>
+        <result column="CAMP_FACILITY" property="camp_facility"/>
+    </resultMap>
+
+    <insert id="insertCampDips" parameterType="com.camply.camp.board.vo.BoardVO">
+        INSERT INTO camp_dips (
+            CAMP_ID,
+            USER_ID
+        )
+        VALUES (
+                   #{camp_id},
+                   #{user_id}
+               )
+    </insert>
+
+    <delete id="deleteCampDips" parameterType="Long">
+        DELETE FROM camp_dips WHERE CAMP_ID = #{camp_id}
+    </delete>
+</mapper>

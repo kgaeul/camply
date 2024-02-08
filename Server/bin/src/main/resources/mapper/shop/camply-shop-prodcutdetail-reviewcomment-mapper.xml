@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.camply.shop.productdetail.review.dao.ReviewDao">
+   
+   
+   <!--후기글 조회-->
+   <resultMap id="ReviewView" type="com.camply.shop.productdetail.review.vo.ReviewVO">
+			<id property="reviewNo" column="REVIEW_NO"/>
+			  	<result property="reviewTitle" column="REVIEW_TITLE"/>
+			  	<result property="reviewText" column="REVIEW_TEXT"/>
+		        <result property="reviewName" column="REVIEW_NAME"/>
+		        <result property="reviewDate" column="REVIEW_DATE"/>
+		        <result property="reviewHit" column="REVIEW_HIT"/>
+	</resultMap>
+	<select id="getReview" resultMap="ReviewView" parameterType="int" >
+		SELECT * FROM Shop_Review WHERE REVIEW_NO = #{reviewNo}
+	</select>
+	 <!--문의글 조회수 증가 -->
+    <update id="incrementReviewHit" parameterType="int">
+    UPDATE Shop_Review
+    SET review_hit = review_hit + 1
+    WHERE review_no = #{reviewNo}
+	</update>
+	
+   <!--후기글 작성-->
+    <insert id="insertReview" parameterType="com.camply.shop.productdetail.review.vo.ReviewVO">
+        INSERT INTO Shop_Review (REVIEW_NO, REVIEW_TITLE, REVIEW_TEXT, REVIEW_NAME, REVIEW_DATE, REVIEW_HIT)
+        VALUES (REVIEW_NO_SEQ.NEXTVAL, #{reviewTitle}, #{reviewText}, #{reviewName}, sysdate, 0)
+    </insert>
+</mapper>

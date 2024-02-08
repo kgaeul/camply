@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.camply.shop.cart.dao.CartDao">			
+	
+	
+	<!--장바구니 정보 저장-->
+	 <insert id="insertCart" parameterType="com.camply.shop.cart.vo.CartVO">
+        INSERT INTO SHOP_CART (CART_ID, PRODUCT_ID, CART_CATEGORY, CART_IMG,CART_NAME,CART_PRICE,CART_PRICE,CART_AMOUNT)
+        VALUES (CART_ID_SEQ.NEXTVAL,#{productId},#{cartCategory},#{cartImg},#{cartName},#{cartPrice},#{cartAmount})
+    </insert>
+	</mapper>
